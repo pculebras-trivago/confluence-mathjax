@@ -1,3 +1,8 @@
 *~
 src/main/resources/mathjax/*
+src/test
 packages/*
+mathjax.iml
+.idea
+target
+.DS_Store

@@ -7,39 +7,26 @@
 
     <resource key="icons" name="icons/" type="download" location="images/icons"/>
 
-    <macro name="mathinline" 
-	   class="com.cityinthesky.plugins.mathjax.MathInline" 
-	   key="mathinline">
-        <description>Create an inline equation using Latex notation and MathJax.</description>
-        <resource type="velocity" name="help" location="templates/mathinline-help.vm">
-            <param name="help-section" value="advanced"/>
-        </resource>
-        <category name="formatting"/>
-    </macro>
-
-    <macro name="mathdisplay" 
-	   class="com.cityinthesky.plugins.mathjax.MathDisplay" 
-	   key="mathdisplay">
-        <description>Create a displayed equation using Latex notation and MathJax.</description>
-        <resource type="velocity" name="help" location="templates/mathdisplay-help.vm">
-            <param name="help-section" value="advanced"/>
-        </resource>
-        <category name="formatting"/>
-    </macro>
+    <resource type="i18n" name="i18n" location="i18n"/>
 
     <xhtml-macro name="mathinline"
-                 class="com.cityinthesky.plugins.mathjax.MathInlineV4"
-                 key="mathinlineV4"
+                 class="com.cityinthesky.plugins.mathjax.MathInline"
+                 key="mathinline"
                  icon="/download/resources/com.cityinthesky.plugins.mathjax/icons/mathjax.png"
                  documentation-url="http://www.cityinthesky.co.uk/opensource/confluence-mathjax">
         <description>Create an inline equation using Latex notation and MathJax.</description>
         <category name="formatting"/>
-        <parameters/>
+        <parameters>
+            <parameter name="formula" type="string" required="true">
+                <option key="showNameInPlaceholder" value="true" />
+                <option key="showValueInPlaceholder" value="true" />
+            </parameter>
+        </parameters>
     </xhtml-macro>
 
     <xhtml-macro name="mathdisplay"
-                 class="com.cityinthesky.plugins.mathjax.MathDisplayV4"
-                 key="mathdisplayV4"
+                 class="com.cityinthesky.plugins.mathjax.MathDisplay"
+                 key="mathdisplay"
                  icon="/download/resources/com.cityinthesky.plugins.mathjax/icons/mathjax.png"
                  documentation-url="http://www.cityinthesky.co.uk/opensource/confluence-mathjax">
         <description>Create a displayed equation using Latex notation and MathJax.</description>
@@ -54,8 +41,8 @@
     <web-resource key="resources" name="MathJax resources">
         <dependency>com.cityinthesky.plugins.mathjax:config</dependency>
         <resource type="download" name="MathJax.js" location="mathjax/MathJax.js">
-	    <param name="batch" value="false"/>
-	</resource>
+            <param name="batch" value="false"/>
+        </resource>
         <resource type="download" name="config/" location="mathjax/config" />
         <resource type="download" name="extensions/" location="mathjax/extensions" />
         <resource type="download" name="fonts/" location="mathjax/fonts" />

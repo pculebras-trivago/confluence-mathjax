@@ -1,45 +1,43 @@
 package com.cityinthesky.plugins.mathjax;
 
-import java.util.Map;
-
-import com.atlassian.renderer.RenderContext;
-import com.atlassian.renderer.v2.macro.BaseMacro;
-import com.atlassian.renderer.v2.macro.MacroException;
-import com.atlassian.renderer.v2.RenderMode;
+import com.atlassian.confluence.content.render.xhtml.ConversionContext;
+import com.atlassian.confluence.macro.Macro;
+import com.atlassian.confluence.macro.MacroExecutionException;
 import com.atlassian.confluence.renderer.radeox.macros.MacroUtils;
 import com.atlassian.confluence.util.velocity.VelocityUtils;
+import com.atlassian.renderer.v2.components.HtmlEscaper;
+import java.util.Map;
 
-public class MathInline extends BaseMacro
+public class MathInline implements Macro
 {
-
     private static final String MACRO_BODY_TEMPLATE = "templates/mathinline.vm";
 
     public MathInline()
     {
     }
 
-    public boolean isInline()
+    @Override
+    public BodyType getBodyType()
     {
-        return false;
+        return BodyType.NONE;
     }
 
-    public boolean hasBody()
+    @Override
+    public OutputType getOutputType()
     {
-        return true;
+        return OutputType.INLINE;
     }
 
-    public RenderMode getBodyRenderMode()
+    @Override
+    public String execute(Map<String, String> parameters, String bodyContent, ConversionContext conversionContext)
+            throws MacroExecutionException
     {
-        return RenderMode.NO_RENDER;
-    }
+        bodyContent = parameters.get("formula");
 
-    public String execute(Map params, String body, RenderContext renderContext)
-            throws MacroException
-    {
         Map<String, Object> context = MacroUtils.defaultVelocityContext();
-	String newBody = body.replaceAll("<", "&lt;").replaceAll(">", "&gt;");
-	context.put("body", newBody);
+
+        context.put("body", HtmlEscaper.escapeAll(bodyContent, true));
+
         return VelocityUtils.getRenderedTemplate(MACRO_BODY_TEMPLATE, context);
     }
-
 }

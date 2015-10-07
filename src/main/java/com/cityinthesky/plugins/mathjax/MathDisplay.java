@@ -1,45 +1,42 @@
 package com.cityinthesky.plugins.mathjax;
-
-import java.util.Map;
-
-import com.atlassian.renderer.RenderContext;
-import com.atlassian.renderer.v2.macro.BaseMacro;
-import com.atlassian.renderer.v2.macro.MacroException;
-import com.atlassian.renderer.v2.RenderMode;
+ 
+import com.atlassian.confluence.content.render.xhtml.ConversionContext;
+import com.atlassian.confluence.macro.Macro;
+import com.atlassian.confluence.macro.MacroExecutionException;
 import com.atlassian.confluence.renderer.radeox.macros.MacroUtils;
 import com.atlassian.confluence.util.velocity.VelocityUtils;
-
-public class MathDisplay extends BaseMacro
+import com.atlassian.renderer.v2.components.HtmlEscaper;
+import java.util.Map;
+ 
+public class MathDisplay implements Macro
 {
-
     private static final String MACRO_BODY_TEMPLATE = "templates/mathdisplay.vm";
 
     public MathDisplay()
     {
     }
-
-    public boolean isInline()
+ 
+    @Override
+    public BodyType getBodyType()
     {
-        return false;
+        return BodyType.PLAIN_TEXT;
     }
-
-    public boolean hasBody()
+ 
+    @Override
+    public OutputType getOutputType()
     {
-        return true;
+        return OutputType.BLOCK;
     }
-
-    public RenderMode getBodyRenderMode()
-    {
-        return RenderMode.NO_RENDER;
-    }
-
-    public String execute(Map params, String body, RenderContext renderContext)
-            throws MacroException
+ 
+    @Override
+    public String execute(Map<String, String> parameters, String bodyContent, ConversionContext conversionContext) 
+	throws MacroExecutionException
     {
         Map<String, Object> context = MacroUtils.defaultVelocityContext();
-	String newBody = body.replaceAll("<", "&lt;").replaceAll(">", "&gt;");
-	context.put("body", newBody);
+        if (bodyContent.length() == 0) {
+            bodyContent = "\\int_{-\\infty}^\\infty \\mbox{e}^{-x^2} \\mbox{d}x = \\sqrt{\\pi}";
+        }
+	context.put("body", HtmlEscaper.escapeAll(bodyContent, true));
         return VelocityUtils.getRenderedTemplate(MACRO_BODY_TEMPLATE, context);
     }
-
 }
