@@ -1,2 +1,2 @@
 #requireResource("com.cityinthesky.plugins.mathjax:resources")
-\($$ $body $$\)
+\($$ \eqref{$body} $$\)

@@ -34,7 +34,23 @@
         <parameters/>
     </xhtml-macro>
 
+    <xhtml-macro name="mathreference"
+                 class="com.cityinthesky.plugins.mathjax.MathReference"
+                 key="mathreference"
+                 icon="/download/resources/com.cityinthesky.plugins.mathjax/icons/mathjax.png"
+                 documentation-url="http://www.cityinthesky.co.uk/opensource/confluence-mathjax">
+        <description>Create a link to an existing equation label.</description>
+        <category name="formatting"/>
+        <parameters>
+            <parameter name="label" type="string" required="true">
+                <option key="showNameInPlaceholder" value="true" />
+                <option key="showValueInPlaceholder" value="true" />
+            </parameter>
+        </parameters>
+    </xhtml-macro>
+
     <web-resource key="config" name="MathJax configuration">
+        <dependency>confluence.web.resources:ajs</dependency>
         <resource type="download" name="MathJaxConfig.js" location="MathJaxConfig.js" />
     </web-resource>
 

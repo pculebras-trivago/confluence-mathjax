@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.cityinthesky.plugins</groupId>
     <artifactId>mathjax</artifactId>
-    <version>1.1</version>
+    <version>1.2</version>
     <organization>
         <name>David A.W. Barton</name>
         <url>http://www.cityinthesky.co.uk/</url>
@@ -18,18 +18,6 @@
             <artifactId>confluence</artifactId>
             <version>${confluence.version}</version>
             <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-core</artifactId>
-            <version>1.9.5</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.6</version>
-            <scope>test</scope>
         </dependency>
     </dependencies>
     <build>
@@ -58,5 +46,6 @@
         <confluence.version>5.6.5</confluence.version>
         <confluence.data.version>5.6.5</confluence.data.version>
         <amps.version>5.1.18</amps.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 </project>
